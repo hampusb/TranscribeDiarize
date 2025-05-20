@@ -44,7 +44,8 @@ def main():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     
     # Load KBLab Swedish model
-    model = whisperx.load_model("kblab/whisper-large-v2-swedish", device)
+    
+    model = whisperx.load_model("KBLab/kb-whisper-large", device)
     
     print("Transcribing audio...")
     # Transcribe audio
