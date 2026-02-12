@@ -1,4 +1,6 @@
 .venv/
+cache/
 .envrc
 .python-version
-=3.1.0
+config.py
+output/

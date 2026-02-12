@@ -1,69 +1,75 @@
-# Swedish Audio Transcription with Diarization
+# Svensk ljudtranskribering med talardiarisering
 
-This tool transcribes Swedish audio files and performs speaker diarization using the KBLab Swedish Whisper model and WhisperX.
+Transkriberar svenska ljudfiler och identifierar talare med hjälp av KBLabs svenska Whisper-modell och WhisperX.
 
-## Requirements
+## Krav
 
-- Python 3.8 or higher
-- CUDA-capable GPU (recommended for faster processing)
+- Python 3.8 eller senare
+- CUDA-kompatibelt GPU (rekommenderas)
 
 ## Installation
 
-1. Create a virtual environment (recommended):
+1. Skapa en virtuell miljö:
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate
 ```
 
-2. Install PyTorch first (choose the appropriate command for your system):
+2. Installera PyTorch:
 ```bash
-# For CUDA (GPU support)
+# Med GPU-stöd (CUDA)
 pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu118
 
-# For CPU only
+# Utan GPU
 pip install torch torchaudio
 ```
 
-3. Install ctranslate2:
+3. Installera ctranslate2:
 ```bash
 pip install ctranslate2
 ```
 
-4. Install the remaining requirements:
+4. Installera övriga beroenden:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+## Konfiguration
 
-Basic usage:
+Kopiera `config.example.py` till `config.py` och fyll i dina inställningar:
+
+- `WHISPER_MODEL` — Whisper-modell för transkribering
+- `ALIGN_MODEL` — Modell för alignment
+- `DIARIZATION_MODEL` — Modell för talardiarisering
+- `MODEL_DIR` — Sökväg till lokalt lagrade modeller
+- `HF_AUTH_TOKEN` — HuggingFace-token (kan även sättas via miljövariabeln `HF_AUTH_TOKEN`)
+
+## Användning
+
 ```bash
-python transcribe.py input.wav --persons 3 --output output.md
+python transcribe.py ljudfil.wav --persons 3 --output output/resultat.md
 ```
 
-Arguments:
-- `input.wav`: Path to the audio file (required)
-- `--persons`: Number of speakers to detect (default: 2)
-- `--output`: Output markdown file (default: output.md)
+Argument:
+- `ljudfil.wav` — Sökväg till ljudfilen (obligatorisk)
+- `--persons` — Antal talare (standard: 2)
+- `--output` — Utdatafil (standard: `output/output.md`)
+- `--language` — Språkkod (standard: `sv`)
+- `--batch-size` — Batchstorlek för transkribering (standard: 16)
+- `--compute-type` — Beräkningstyp: `float16`, `float32`, `int8` (standard: `float32`)
 
-## Output Format
+## Utdataformat
 
-The script generates a markdown file with the following format:
+Skriptet genererar en markdownfil:
+
 ```markdown
 # Transcription with Speaker Diarization
 
 ## SPEAKER_1 [00:00:00.000 - 00:00:05.000]
 
-Transcribed text for speaker 1...
+Transkriberad text för talare 1...
 
 ## SPEAKER_2 [00:00:05.000 - 00:00:10.000]
 
-Transcribed text for speaker 2...
+Transkriberad text för talare 2...
 ```
-
-## Notes
-
-- The script uses the KBLab Swedish Whisper model for transcription
-- Speaker diarization is performed using WhisperX
-- Processing time depends on the length of the audio file and your hardware
-- For best results, use clear audio with minimal background noise 
