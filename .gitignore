@@ -1,5 +1,6 @@
 .venv/
 cache/
+.claude/
 .envrc
 .python-version
 config.py
