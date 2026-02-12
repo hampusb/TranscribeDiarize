@@ -1,7 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
 .venv/
+
+# Config (contains secrets)
+config.py
+
+# Output
+output/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Project
 cache/
-.claude/
 .envrc
 .python-version
-config.py
-output/
+.claude/
+*.zip
